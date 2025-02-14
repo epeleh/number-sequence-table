@@ -1,7 +1,7 @@
 package main
 
-import "fmt"
+import "github.com/epeleh/sample-number-table/cli"
 
 func main() {
-	fmt.Println("Hello world!")
+	cli.StartDialog()
 }
