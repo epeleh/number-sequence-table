@@ -19,3 +19,6 @@ Disabled = true
 
 [rule.unhandled-error]
 arguments = ["fmt.Print.*"]
+
+[rule.cognitive-complexity]
+  arguments = [10]
