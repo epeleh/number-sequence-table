@@ -5,7 +5,7 @@ Prints a table of numbers based on the user's preferences.
 
 ## Table of Contents
 - [Installation](#installation)
-- [Usage](#usage)
+- [Usage examples](#usage-examples)
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
@@ -28,10 +28,48 @@ go mod tidy
 go build -o bin/nst
 ```
 
-## Usage
+## Usage examples
+
+### General usage
 ```sh
-$ ./bin/nst
-=> Please give matrix dimension (<width>x<height>)
+./bin/nst
+=> Please give table dimensions (<width>x<height>)
+-> 5x4
+=> Should I use (P)rime numbers or (F)ibonacci numbers?
+-> F
+=> Multiplication (*) or Addition (+)
+-> M
+
+  1   1   2   3   5
+  1   1   2   3   5
+  2   2   4   6  10
+  3   3   6   9  15
+
+
+```
+
+### Or you can answer the questions using command arguments
+```sh
+./bin/nst 5x4 F M
+=> Please give table dimensions (<width>x<height>)
+-> 5x4
+=> Should I use (P)rime numbers or (F)ibonacci numbers?
+-> F
+=> Multiplication (*) or Addition (+)
+-> M
+
+  1   1   2   3   5
+  1   1   2   3   5
+  2   2   4   6  10
+  3   3   6   9  15
+
+
+```
+
+### Piped input is also supported
+```sh
+printf "5x4\nF\nM\n" | ./bin/nst
+=> Please give table dimensions (<width>x<height>)
 -> 5x4
 => Should I use (P)rime numbers or (F)ibonacci numbers?
 -> F
