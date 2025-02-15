@@ -3,8 +3,8 @@ package table
 import (
 	"fmt"
 
-	"github.com/epeleh/sample-number-table/cli/common"
-	"github.com/epeleh/sample-number-table/cli/numsequences"
+	"github.com/epeleh/number-sequence-table/cli/common"
+	"github.com/epeleh/number-sequence-table/cli/numsequences"
 )
 
 // Print generates a table of numbers and writes it to stdout

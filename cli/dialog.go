@@ -7,8 +7,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/epeleh/sample-number-table/cli/common"
-	"github.com/epeleh/sample-number-table/cli/table"
+	"github.com/epeleh/number-sequence-table/cli/common"
+	"github.com/epeleh/number-sequence-table/cli/table"
 )
 
 var isPipedInput bool

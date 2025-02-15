@@ -1,4 +1,4 @@
-# Sample number table
+# Number Sequence Table
 
 ## Description
 Prints a table of numbers based on the user's preferences.
@@ -18,19 +18,19 @@ Prints a table of numbers based on the user's preferences.
 ### Steps
 ```sh
 # Clone the repository
-git clone https://github.com/epeleh/sample-number-table
-cd sample-number-table
+git clone https://github.com/epeleh/number-sequence-table
+cd number-sequence-table
 
 # Install dependencies
 go mod tidy
 
 # Build the project
-go build -o bin/snt
+go build -o bin/nst
 ```
 
 ## Usage
 ```sh
-$ ./bin/snt
+$ ./bin/nst
 => Please give matrix dimension (<width>x<height>)
 -> 5x4
 => Should I use (P)rime numbers or (F)ibonacci numbers?

@@ -1,3 +1,3 @@
-module github.com/epeleh/sample-number-table
+module github.com/epeleh/number-sequence-table
 
 go 1.24.0
