@@ -8,8 +8,7 @@ import (
 	"strings"
 
 	"github.com/epeleh/sample-number-table/cli/common"
-	"github.com/epeleh/sample-number-table/cli/fibonaccitable"
-	"github.com/epeleh/sample-number-table/cli/primetable"
+	"github.com/epeleh/sample-number-table/cli/table"
 )
 
 var isPipedInput bool
@@ -23,16 +22,11 @@ func StartDialog() {
 	scanner := bufio.NewScanner(os.Stdin)
 
 	width, height := askForTableDimensions(scanner)
-	tableType := askForTableType(scanner)
+	numberSequence := askForNumberSequence(scanner)
 	arithmeticOperation := askForArithmeticOperation(scanner)
 
-	printTableFunc := map[common.TableType]func(uint, uint, common.ArithmeticOperation){
-		common.Prime:     primetable.Print,
-		common.Fibonacci: fibonaccitable.Print,
-	}[tableType]
-
 	fmt.Println()
-	printTableFunc(width, height, arithmeticOperation)
+	table.Print(width, height, numberSequence, arithmeticOperation)
 	fmt.Println()
 }
 
@@ -63,7 +57,7 @@ func askForTableDimensions(scanner *bufio.Scanner) (width, height uint) {
 	}
 }
 
-func askForTableType(scanner *bufio.Scanner) common.TableType {
+func askForNumberSequence(scanner *bufio.Scanner) common.NumberSequence {
 	for {
 		fmt.Print("=> Should I use (P)rime numbers or (F)ibonacci numbers?\n-> ")
 		if !scanner.Scan() {
