@@ -11,6 +11,7 @@ import (
 	"github.com/epeleh/number-sequence-table/cli/table"
 )
 
+var isArgsInput = len(os.Args) > 1
 var isPipedInput bool
 
 func init() {
@@ -19,7 +20,12 @@ func init() {
 }
 
 func StartDialog() {
-	scanner := bufio.NewScanner(os.Stdin)
+	var scanner *bufio.Scanner
+	if isArgsInput {
+		scanner = bufio.NewScanner(strings.NewReader(strings.Join(os.Args[1:], "\n")))
+	} else {
+		scanner = bufio.NewScanner(os.Stdin)
+	}
 
 	width, height := askForTableDimensions(scanner)
 	numberSequence := askForNumberSequence(scanner)
@@ -39,7 +45,7 @@ func askForTableDimensions(scanner *bufio.Scanner) (width, height uint) {
 		}
 
 		input := scanner.Text()
-		if isPipedInput {
+		if isArgsInput || isPipedInput {
 			fmt.Println(input)
 		}
 
@@ -66,7 +72,7 @@ func askForNumberSequence(scanner *bufio.Scanner) common.NumberSequence {
 		}
 
 		input := scanner.Text()
-		if isPipedInput {
+		if isArgsInput || isPipedInput {
 			fmt.Println(input)
 		}
 
@@ -88,7 +94,7 @@ func askForArithmeticOperation(scanner *bufio.Scanner) common.ArithmeticOperatio
 		}
 
 		input := scanner.Text()
-		if isPipedInput {
+		if isArgsInput || isPipedInput {
 			fmt.Println(input)
 		}
 
