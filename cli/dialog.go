@@ -12,10 +12,19 @@ import (
 	"github.com/epeleh/sample-number-table/cli/primetable"
 )
 
+var isPipedInput bool
+
+func init() {
+	stat, err := os.Stdin.Stat()
+	isPipedInput = err == nil && (stat.Mode()&os.ModeCharDevice) == 0
+}
+
 func StartDialog() {
-	width, height := askForTableDimensions()
-	tableType := askForTableType()
-	arithmeticOperation := askForArithmeticOperation()
+	scanner := bufio.NewScanner(os.Stdin)
+
+	width, height := askForTableDimensions(scanner)
+	tableType := askForTableType(scanner)
+	arithmeticOperation := askForArithmeticOperation(scanner)
 
 	printTableFunc := map[common.TableType]func(uint, uint, common.ArithmeticOperation){
 		common.Prime:     primetable.Print,
@@ -27,14 +36,20 @@ func StartDialog() {
 	fmt.Println()
 }
 
-func askForTableDimensions() (width, height uint) {
-	for scanner := bufio.NewScanner(os.Stdin); ; {
+func askForTableDimensions(scanner *bufio.Scanner) (width, height uint) {
+	for {
 		fmt.Print("=> Please give table dimensions (<width>x<height>)\n-> ")
 		if !scanner.Scan() {
-			continue
+			fmt.Println("3x3")
+			return 3, 3 // use some default values if EOF is reached
 		}
 
-		dimensions := strings.ReplaceAll(strings.ToLower(scanner.Text()), " ", "")
+		input := scanner.Text()
+		if isPipedInput {
+			fmt.Println(input)
+		}
+
+		dimensions := strings.ReplaceAll(strings.ToLower(input), " ", "")
 		if !regexp.MustCompile(`\A\d+x\d+\z`).MatchString(dimensions) {
 			continue
 		}
@@ -48,14 +63,20 @@ func askForTableDimensions() (width, height uint) {
 	}
 }
 
-func askForTableType() common.TableType {
-	for scanner := bufio.NewScanner(os.Stdin); ; {
+func askForTableType(scanner *bufio.Scanner) common.TableType {
+	for {
 		fmt.Print("=> Should I use (P)rime numbers or (F)ibonacci numbers?\n-> ")
 		if !scanner.Scan() {
-			continue
+			fmt.Println("p")
+			return common.Prime // use some default value if EOF is reached
 		}
 
-		switch strings.TrimSpace(strings.ToLower(scanner.Text())) {
+		input := scanner.Text()
+		if isPipedInput {
+			fmt.Println(input)
+		}
+
+		switch strings.TrimSpace(strings.ToLower(input)) {
 		case "p", "prime":
 			return common.Prime
 		case "f", "fib", "fibonacci":
@@ -64,14 +85,20 @@ func askForTableType() common.TableType {
 	}
 }
 
-func askForArithmeticOperation() common.ArithmeticOperation {
-	for scanner := bufio.NewScanner(os.Stdin); ; {
+func askForArithmeticOperation(scanner *bufio.Scanner) common.ArithmeticOperation {
+	for {
 		fmt.Print("=> Multiplication (*) or Addition (+)\n-> ")
 		if !scanner.Scan() {
-			continue
+			fmt.Println("m")
+			return common.Multiplication // use some default value if EOF is reached
 		}
 
-		switch strings.TrimSpace(strings.ToLower(scanner.Text())) {
+		input := scanner.Text()
+		if isPipedInput {
+			fmt.Println(input)
+		}
+
+		switch strings.TrimSpace(strings.ToLower(input)) {
 		case "m", "mul", "multiplication", "*":
 			return common.Multiplication
 		case "a", "add", "addition", "+":
