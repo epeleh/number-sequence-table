@@ -11,11 +11,37 @@ Prints a table of numbers based on the user's preferences.
 - [Contact](#contact)
 
 ## Installation
+You can install the app either by downloading the pre-built executable or by building it from the source code.
 
-### Prerequisites
+### Option 1: Install Pre-Built Executable
+
+#### Download and Install
+Using `wget`:
+```sh
+wget -O nst https://github.com/epeleh/number-sequence-table/releases/latest/download/nst
+```
+Using `curl`:
+```sh
+curl -L -o nst https://github.com/epeleh/number-sequence-table/releases/latest/download/nst
+```
+
+Make the file executable:
+```sh
+chmod +x nst
+```
+
+Run the application:
+```sh
+./nst
+```
+
+---
+### Option 2: Install from Source
+
+#### Prerequisites
 - Go 1.24.0 installed (Download from [golang.org](https://golang.org/dl/))
 
-### Steps
+#### Steps
 ```sh
 # Clone the repository
 git clone https://github.com/epeleh/number-sequence-table
@@ -28,11 +54,16 @@ go mod tidy
 go build -o bin/nst
 ```
 
+Run the application:
+```sh
+./bin/nst
+```
+
 ## Usage examples
 
 ### General usage
 ```sh
-./bin/nst
+./nst
 => Please give table dimensions (<width>x<height>)
 -> 5x4
 => Should I use (P)rime numbers or (F)ibonacci numbers?
@@ -50,7 +81,7 @@ go build -o bin/nst
 
 ### Or you can answer the questions using command arguments
 ```sh
-./bin/nst 5x4 F M
+./nst 5x4 F M
 => Please give table dimensions (<width>x<height>)
 -> 5x4
 => Should I use (P)rime numbers or (F)ibonacci numbers?
@@ -68,7 +99,7 @@ go build -o bin/nst
 
 ### Piped input is also supported
 ```sh
-printf "5x4\nF\nM\n" | ./bin/nst
+printf "5x4\nF\nM\n" | ./nst
 => Please give table dimensions (<width>x<height>)
 -> 5x4
 => Should I use (P)rime numbers or (F)ibonacci numbers?
