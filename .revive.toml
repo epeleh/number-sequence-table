@@ -1,7 +1,7 @@
 severity = "warning"
 confidence = 0.8
-errorCode = 0
-warningCode = 0
+errorCode = 1
+warningCode = 2
 
 enableAllRules = true
 
@@ -18,7 +18,7 @@ Disabled = true
 Disabled = true
 
 [rule.unhandled-error]
-arguments = ["fmt.Print.*"]
+arguments = ["fmt\\.Print\\w*"]
 
 [rule.cognitive-complexity]
   arguments = [10]
