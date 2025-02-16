@@ -30,11 +30,6 @@ Make the file executable:
 chmod +x nst
 ```
 
-Run the application:
-```sh
-./nst
-```
-
 ---
 ### Option 2: Install from Source
 
@@ -51,12 +46,7 @@ cd number-sequence-table
 go mod tidy
 
 # Build the project
-go build -o bin/nst
-```
-
-Run the application:
-```sh
-./bin/nst
+go build -o nst
 ```
 
 ## Usage examples
