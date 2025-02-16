@@ -13,7 +13,7 @@ func Print(
 	numberSequence common.NumberSequence,
 	arithmeticOperation common.ArithmeticOperation,
 ) {
-	numberSequenceFunc := map[common.NumberSequence]func(uint) int{
+	numberSequenceFunc := map[common.NumberSequence](func(uint) int){
 		common.Prime:     numsequences.Prime,
 		common.Fibonacci: numsequences.Fibonacci,
 	}[numberSequence]
