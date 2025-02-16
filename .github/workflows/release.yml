@@ -1,0 +1,69 @@
+name: release
+
+on:
+  push:
+    tags:
+    - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build_release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-go@v4
+      with:
+        go-version: '1.24.0'
+
+    - name: Build project
+      run: go build -v -o nst
+
+    - name: Test
+      run: |
+        go run github.com/onsi/ginkgo/v2/ginkgo run -r -p --coverprofile=coverprofile.out
+        go tool cover -func=coverprofile.out -o coverage.txt
+        go tool cover -html=coverprofile.out -o coverage.html
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: "Full Changelog: https://github.com/${{ github.repository }}/commits/${{ github.ref_name }}"
+        draft: false
+        prerelease: false
+
+    - name: Upload nst asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: nst
+        asset_name: nst
+        asset_content_type: application/x-elf
+
+    - name: Upload coverage.txt asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: coverage.txt
+        asset_name: coverage.txt
+        asset_content_type: text/plain
+
+    - name: Upload coverage.html asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: coverage.html
+        asset_name: coverage.html
+        asset_content_type: text/html
