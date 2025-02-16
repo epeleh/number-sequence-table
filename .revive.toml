@@ -6,22 +6,26 @@ warningCode = 2
 enableAllRules = true
 
 [rule.line-length-limit]
-  arguments = [100]
+  Arguments = [100]
 
 [rule.add-constant]
-Disabled = true
+  Disabled = true
 
 [rule.package-comments]
-Disabled = true
+  Disabled = true
 
 [rule.exported]
-Disabled = true
+  Disabled = true
 
 [rule.unhandled-error]
-arguments = ["fmt\\.Print\\w*"]
+  Arguments = ["fmt\\.Print\\w*"]
+  Exclude = ["TEST"]
 
 [rule.cognitive-complexity]
-  arguments = [10]
+  Arguments = [10]
 
 [rule.dot-imports]
-  arguments = [{ allowedPackages = ["github.com/onsi/ginkgo/v2","github.com/onsi/gomega"] }]
+  Arguments = [{ allowedPackages = ["github.com/onsi/ginkgo/v2","github.com/onsi/gomega"] }]
+
+[rule.blank-imports]
+  Exclude = ["tools.go"]

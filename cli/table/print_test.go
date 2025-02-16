@@ -57,7 +57,9 @@ var _ = Describe("Print", func() {
 		When(fmt.Sprintf("%+v", args), func() {
 			It("prints the table properly", func() {
 				stdout := captureStdout(func() {
-					table.Print(args.width, args.height, args.numberSequence, args.arithmeticOperation)
+					table.Print(
+						args.width, args.height, args.numberSequence, args.arithmeticOperation,
+					)
 				})
 
 				Expect(stdout).To(Equal(expectedStdout))
