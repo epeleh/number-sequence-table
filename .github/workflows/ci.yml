@@ -20,8 +20,9 @@ jobs:
     - run: go build -v -o bin/nst
     - uses: actions/upload-artifact@v4
       with:
-        path: bin/nst
+        name: bin
         if-no-files-found: error
+        path: bin/nst
 
   test:
     runs-on: ubuntu-latest
@@ -30,7 +31,18 @@ jobs:
     - uses: actions/setup-go@v4
       with:
         go-version: '1.24.0'
-    - run: go test -vet=off -v ./...
+    - run: go run github.com/onsi/ginkgo/v2/ginkgo run -r -p --coverprofile=coverprofile.out
+    - run: go tool cover -func=coverprofile.out
+    - run: go tool cover -func=coverprofile.out -o coverage.txt
+    - run: go tool cover -html=coverprofile.out -o coverage.html
+    - uses: actions/upload-artifact@v4
+      with:
+        name: coverage
+        if-no-files-found: error
+        path: |
+          coverprofile.out
+          coverage.txt
+          coverage.html
 
   vet:
     runs-on: ubuntu-latest

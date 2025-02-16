@@ -22,3 +22,6 @@ arguments = ["fmt\\.Print\\w*"]
 
 [rule.cognitive-complexity]
   arguments = [10]
+
+[rule.dot-imports]
+  arguments = [{ allowedPackages = ["github.com/onsi/ginkgo/v2","github.com/onsi/gomega"] }]
